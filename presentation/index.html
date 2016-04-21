@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Markov Word Predictor</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Markov Word Predictor">
+  <meta name="author" content="Eduardo Rodríguez">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Markov Word Predictor</h1>
+    <h2>A shiny app that predicts the next word you will type</h2>
+    <p>Eduardo Rodríguez<br/>Capstone Project for the Data Science Specialization at Coursera</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Word Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When you type text on your smartphone, it offers you several alternatives
+for the next word you might want to type.</li>
+<li>Your keyboard app compares the words you have written
+with those in a text database, and searches for the next most likely word.</li>
+<li>This is called an &quot;n-gram model,&quot; where n refers to the number of words
+used to predict the next one.</li>
+</ul>
+
+<h2>Why Markov?</h2>
+
+<ul>
+<li>We have built an n-gram model as an n-th order Markov chain,
+a process that undergoes transitions from one &quot;state&quot; to another
+with a given probability.</li>
+<li>Our states are all the words known to the app.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The Shiny App</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src="shinyapp-screenshot.png" height=250></p>
+
+<p>Shiny app hosted on the Shiny Apps server 
+(<a href="https://nemarona.shinyapps.io/Markov_Word_Predictor/">click here</a>).
+Clean and simple interface:</p>
+
+<ol>
+<li>Type a sentence</li>
+<li>Hit Submit button</li>
+<li>Get a prediction for the next word</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Our model is an \(n\)-th order Markov chain, following the implementation
+suggested by Ching et al. (paper available <a href="http://dx.doi.org/10.1002/nav.20017">here</a>).</li>
+<li>The state of the system at time \(t\) depends on the \(n\) previous states:
+\[X_{t} = \sum_{k=1}^{n} \lambda_{k} X_{t-k} Q_{k}\]</li>
+<li>Here, \(Q_{k}\) is a \(k\)-th order transition matrix, estimated from the text corpus,
+and \(\lambda_{k}\) are (positive) coefficients subject to the restriction
+\(\lambda_{1} + \lambda_{2} + \cdots + \lambda_{n} = 1\).</li>
+<li>The \(\lambda\)-coefficients are computed by solving the following linear programming problem:
+\[\min_{\lambda} \left\lVert \sum_{k=1}^{n} \lambda_{k} \hat{X} Q_{k} - \hat{X} \right\rVert,\]
+where \(\hat{X}\) is the stationary distribution (again, estimated from the text corpus).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Current limitations and future improvements</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The size of the model (25,000 words, 2nd order Markov chain)
+was limited by the computing power available to us.</li>
+<li>A larger model (more words in vocabulary, 3rd or higher order Markov chain)
+would perform with better accuracy, although size may be limited
+by speed concerns.</li>
+<li>The Shiny app currently requires the user to hit a Submit button.
+An improved version may predict as you type.</li>
+<li>With predict-as-you-type, one can offer several alternatives for the next word,
+showing each prediction as a button, <a href="https://swiftkey.com/">SwiftKey</a>-style.</li>
+<li>An improved model must be able to learn, i.e., adjust itself to the user.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Word Prediction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The Shiny App'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The Model'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Current limitations and future improvements'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -1,0 +1,8 @@
+name: Markov_Word_Predictor
+account: nemarona
+server: shinyapps.io
+bundleId: 421504
+url: https://nemarona.shinyapps.io/Markov_Word_Predictor/
+when: 1460781013.10292
+asMultiple: FALSE
+asStatic: FALSE
