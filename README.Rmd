@@ -1,6 +1,11 @@
-# Markov Word Predictor
-Eduardo Rodríguez  
-April 20, 2016  
+---
+title       : Markov Word Predictor
+author      : Eduardo Rodríguez
+date        : April 20, 2016
+output:
+  html_document:
+    keep_md: TRUE
+---
 
 This is the GitHub repository for the Capstone Project in the
 [Data Science Specialization](https://www.coursera.org/specializations/jhu-data-science)

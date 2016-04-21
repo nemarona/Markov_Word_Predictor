@@ -1,6 +1,6 @@
 ---
 title       : Markov Word Predictor
-subtitle    : A shiny app that predicts the next word you will type
+subtitle    : A Shiny app that predicts the next word you will type
 author      : Eduardo Rodríguez
 job         : Capstone Project for the Data Science Specialization at Coursera
 framework   : io2012        # {io2012, html5slides, shower, dzslides, revealjs, ...}
@@ -60,10 +60,12 @@ Clean and simple interface:
 
 ## Current limitations and future improvements
 
-- The size of the model (25,000 words, 2nd order Markov chain)
+- Currently, our model predicts the right word about 12% of the time,
+  which is low.
+- Model size (25,000 words, 2nd order Markov chain)
   was limited by the computing power available to us.
 - A larger model (more words in vocabulary, 3rd or higher order Markov chain)
-  would perform with better accuracy, although size may be limited
+  would likely perform better, although size may be limited
   by speed concerns.
 - The Shiny app currently requires the user to hit a Submit button.
   An improved version may predict as you type.
