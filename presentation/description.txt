@@ -1,0 +1,3 @@
+Markov Word Predictor
+
+This 5-slide presentation introduces the Markov Word Predictor, a Shiny app that predicts the next word that a user might type on, e.g., a smarthpone keyboard.
